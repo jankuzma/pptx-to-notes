@@ -9,8 +9,10 @@ import axios from 'axios'
 import {Simulate} from "react-dom/test-utils";
 import error = Simulate.error;
 import toast from "react-hot-toast";
+import {useRouter} from "next/navigation";
 
 const FileUpload = () => {
+    const router = useRouter()
     const [uploading, setUploading] = useState(false)
     const {mutate, isLoading } = useMutation({
         mutationFn: async ({
@@ -45,8 +47,9 @@ const FileUpload = () => {
                     return;
                 }
                 mutate(data,{
-                    onSuccess: (data) => {
-                        toast.success(data.message);
+                    onSuccess: ({chat_id}) => {
+                        toast.success("Chat created.");
+                        router.push(`chat/${chat_id}`)
                     },
                     onError: (err) => {
                         toast.error("error creating chat")
