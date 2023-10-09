@@ -5,6 +5,7 @@ import React from "react";
 import Link from "next/link";
 import {LogIn} from "lucide-react";
 import FileUpload from "@/components/FileUpload";
+import AnimatedText from "@/components/ui/AnimatedText";
 
 export default async function Home() {
 
@@ -14,12 +15,15 @@ export default async function Home() {
 
 
     return (
-        <div className={'w-screen min-h-screen from-gray-900 to-gray-600 bg-gradient-to-r'}>
+        <div className={'w-screen min-h-screen from-gray-900 to-gray-600 bg-gradient-to-r flex justify-end'}>
+            <div className={'p-4'}>
+                <UserButton afterSignOutUrl={'/'} />
+            </div>
             <div className={'absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'}>
                 <div className="flex flex-col items-center text-center ">
                     <div className="flex items-center">
-                        <h1 className={'mr-3 text-5xl font-semibold text-slate-300'}>Chat with any pptx</h1>
-                        <UserButton afterSignOutUrl={'/'}/>
+                        <h1 className={'mr-3 text-5xl font-semibold text-slate-300'}><AnimatedText /></h1>
+
                     </div>
                     <div className="flex mt-2">
                         {isAuth && <Button>Go to chats!</Button>}

@@ -36,14 +36,14 @@ const FileUpload = () => {
             console.log(acceptedFiles);
             const file = acceptedFiles[0]
             if (file.size > 10 * 1024 * 1024) {
-                toast.error('file too large')
-                return
+                toast.error('File too large (max. 10MB)')
+                return;
             }
             try {
                 setUploading(true)
                 const data = await uploadToS3(file);
                 if (!data?.file_key || !data.file_name ){
-                    toast.error('something went wrong')
+                    toast.error('Something went wrong.')
                     return;
                 }
                 mutate(data,{
@@ -52,7 +52,7 @@ const FileUpload = () => {
                         router.push(`chat/${chat_id}`)
                     },
                     onError: (err) => {
-                        toast.error("error creating chat")
+                        toast.error("Error creating chat.")
                     },
                 })
                 console.log("data", data)
