@@ -18,43 +18,48 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
 
   return (
     <div className={"w-full h-screen p-4 text-gray-200 bg-gray-900"}>
-      <Link href={"/"}>
-        <Button className={"w-full border-dashed border-white border"}>
-          <PlusCircle className={"mr-2 w-4 h-4"} />
-          New Chat
-        </Button>
-      </Link>
-
-      <div className="mt-4 flex flex-col gap-2">
-        {chats.map((chat) => (
-          <Link key={chat.id} href={`/chat/${chat.id}`}>
-            <div
-              className={cn("rounded-lg p-3 text-slate-300 flex items-center", {
-                "bg-blue-600 text-white": chat.id === chatId,
-                "hover:text-white": chat.id !== chatId,
-              })}
+      <div className={"flex flex-col justify-between max-h-screen h-full"}>
+        <div>
+          <div className={"flex"}>
+            <Button
+              className={
+                "bg-slate-200 text-slate-950 w-full hover:bg-slate-300"
+              }
             >
-              <MessageCircle className={"mr-2"} />
-              <p
-                className={
-                  "w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis"
-                }
-              >
-                {chat.pdfName}
-              </p>
-            </div>
-          </Link>
-        ))}
-      </div>
+              <PlusCircle className={"w-4 h-4 mr-2"} />
+              New Chat
+            </Button>
+          </div>
 
-      <div className={"absolute bottom-4 left-4"}>
-        <div
-          className={"flex items-center gap-2 text-sm text-slate-500 flex-wrap"}
-        >
-          <Link href={"/"}>Home</Link>
-          <Link href={"/"}>Home</Link>
+          <div className="mt-4 flex flex-col gap-2">
+            {chats.map((chat) => (
+              <Link key={chat.id} href={`/chat/${chat.id}`}>
+                <div
+                  className={cn(
+                    "rounded-lg p-3 text-slate-300 flex items-center",
+                    {
+                      "bg-blue-600 text-white": chat.id === chatId,
+                      "hover:text-white": chat.id !== chatId,
+                    },
+                  )}
+                >
+                  <MessageCircle className={"mr-2"} />
+                  <p
+                    className={
+                      "w-full overflow-hidden text-sm truncate whitespace-nowrap text-ellipsis"
+                    }
+                  >
+                    {chat.pdfName}
+                  </p>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
-        <SubscriptionButton isPro={isPro} />
+
+        <div className={"flex items-center justify-center"}>
+          <SubscriptionButton isPro={isPro} />
+        </div>
       </div>
     </div>
   );

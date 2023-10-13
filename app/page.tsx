@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { auth, UserButton } from "@clerk/nextjs";
+import { auth, ClerkLoaded, ClerkLoading, UserButton } from "@clerk/nextjs";
 import React from "react";
 import Link from "next/link";
 import { ArrowRight, LogIn } from "lucide-react";
@@ -11,6 +11,7 @@ import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
 import VersionPill from "@/components/ui/VersionPill";
+import UserButtonSkeleton from "@/components/ui/UserButtonSkeleton";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -33,10 +34,18 @@ export default async function Home() {
         <div className={"p-4"}>
           <VersionPill />
         </div>
-        <div className={"pt-4"}>
-          <UserButton afterSignOutUrl={"/"} />
-        </div>
+        <ClerkLoading>
+          <div className={"pt-4"}>
+            <UserButtonSkeleton />
+          </div>
+        </ClerkLoading>
+        <ClerkLoaded>
+          <div className={"pt-4"}>
+            <UserButton afterSignOutUrl={"/"} />
+          </div>
+        </ClerkLoaded>
       </div>
+
       <div
         className={
           "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2"
