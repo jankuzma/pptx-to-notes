@@ -1,4 +1,3 @@
-
 import ChatSideBar from "@/components/ChatSideBar";
 
 import { db } from "@/lib/db";
@@ -30,22 +29,19 @@ const ChatPage = async ({ params: { chatId } }: Props) => {
     return redirect("/");
   }
 
-    const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
+  const currentChat = _chats.find((chat) => chat.id === parseInt(chatId));
 
-    return (
-        <div className="flex">
-            <div className="flex w-full max-h-screen">
-                {/* chat sidebar */}
-                <div className="flex-[1] max-w-xs">
-                    <ChatSideBar chats={_chats} chatId={parseInt(chatId)}  />
+  return (
+    <div className="flex max-h-screen overflow-scroll">
+      <div className="flex max-h-screen w-full overflow-scroll">
+        <div className="max-w-xs flex-[1]">
+          <ChatSideBar chats={_chats} chatId={parseInt(chatId)} />
         </div>
-        {/* pdf viewer */}
         <div className="max-h-screen p-4 oveflow-scroll flex-[5]">
           <PDFViewer pdf_url={currentChat?.pdfUrl || ""} />
         </div>
-        {/* chat component */}
-        <div className="flex-[3] border-l-4 border-l-slate-200">
-          <ChatComponent chatId={parseInt(chatId)}/>
+        <div className="border-l-4 border-l-slate-200 flex-[3]">
+          <ChatComponent chatId={parseInt(chatId)} />
         </div>
       </div>
     </div>
