@@ -2,14 +2,26 @@ import { Button } from "@/components/ui/button";
 import { auth, UserButton } from "@clerk/nextjs";
 import React from "react";
 import Link from "next/link";
-import { LogIn } from "lucide-react";
+import { ArrowRight, LogIn } from "lucide-react";
 import FileUpload from "@/components/FileUpload";
 import AnimatedText from "@/components/ui/AnimatedText";
+import { checkSubscription } from "@/lib/subscriptions";
+import SubscriptionButton from "@/components/ui/SubscriptionButton";
+import { eq } from "drizzle-orm";
+import { db } from "@/lib/db";
+import { chats } from "@/lib/db/schema";
 
 export default async function Home() {
   const { userId } = await auth();
   const isAuth = !!userId;
-
+  const isPro = await checkSubscription();
+  let firstChat;
+  if (userId) {
+    firstChat = await db.select().from(chats).where(eq(chats.userId, userId));
+    if (firstChat) {
+      firstChat = firstChat[0];
+    }
+  }
   return (
     <div
       className={
@@ -31,7 +43,17 @@ export default async function Home() {
             </h1>
           </div>
           <div className="mt-2 flex">
-            {isAuth && <Button>Go to chats!</Button>}
+            {isAuth && firstChat && (
+              <Link href={`/chat/${firstChat.id}`}>
+                <Button>
+                  Go to Chats
+                  <ArrowRight className={"ml-2"} />
+                </Button>
+              </Link>
+            )}
+            <div className="ml-3">
+              <SubscriptionButton isPro={isPro} />
+            </div>
           </div>
           <p className={"max-w-xl mt-1 text-lg text-slate-400"}>
             join millions of students that save hours of notes re-writing
