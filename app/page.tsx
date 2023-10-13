@@ -10,6 +10,7 @@ import SubscriptionButton from "@/components/ui/SubscriptionButton";
 import { eq } from "drizzle-orm";
 import { db } from "@/lib/db";
 import { chats } from "@/lib/db/schema";
+import VersionPill from "@/components/ui/VersionPill";
 
 export default async function Home() {
   const { userId } = await auth();
@@ -25,11 +26,16 @@ export default async function Home() {
   return (
     <div
       className={
-        "w-screen min-h-screen from-gray-900 to-gray-600 bg-gradient-to-r flex justify-end"
+        "w-screen min-h-screen from-gray-900 to-gray-600 bg-gradient-to-r"
       }
     >
-      <div className={"p-4"}>
-        <UserButton afterSignOutUrl={"/"} />
+      <div className={"p-4 flex flex-row justify-end"}>
+        <div className={"p-4"}>
+          <VersionPill />
+        </div>
+        <div className={"pt-4"}>
+          <UserButton afterSignOutUrl={"/"} />
+        </div>
       </div>
       <div
         className={
@@ -56,10 +62,10 @@ export default async function Home() {
             </div>
           </div>
           <p className={"max-w-xl mt-1 text-lg text-slate-400"}>
-            join millions of students that save hours of notes re-writing
+            The <span className={"font-semibold"}>only</span> AI file tool you
+            will ever need
           </p>
-
-          <div className="mt-4 w-full">
+          <div className="mt-4 w-96">
             {isAuth ? (
               <FileUpload></FileUpload>
             ) : (
