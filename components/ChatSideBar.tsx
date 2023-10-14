@@ -21,14 +21,16 @@ const ChatSideBar = ({ chats, chatId, isPro }: Props) => {
       <div className={"flex flex-col justify-between max-h-screen h-full"}>
         <div>
           <div className={"flex"}>
-            <Button
-              className={
-                "bg-slate-200 text-slate-950 w-full hover:bg-slate-300"
-              }
-            >
-              <PlusCircle className={"w-4 h-4 mr-2"} />
-              New Chat
-            </Button>
+            <Link href={"/"}>
+              <Button
+                className={
+                  "bg-slate-200 text-slate-950 w-full hover:bg-slate-300"
+                }
+              >
+                <PlusCircle className={"w-4 h-4 mr-2"} />
+                New Chat
+              </Button>
+            </Link>
           </div>
 
           <div className="mt-4 flex flex-col gap-2">
