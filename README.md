@@ -6,6 +6,7 @@
 - React
 - Typescript
 - Nextjs on App Router
+- Bootstrapped using create-t3-app
 - AWS S3
 - PINECONE vector database
 - Drizle ORM
